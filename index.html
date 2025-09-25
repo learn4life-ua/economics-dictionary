@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Професійний словник: Економіка та управління фермою</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji'; }
+    .highlight { background-color:#fde047; border-radius:.25rem; padding:0 .25rem; }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <div class="container mx-auto p-4 md:p-8 lg:p-12 max-w-6xl">
+    <header class="text-center mb-8">
+      <h1 class="text-4xl md:text-5xl font-extrabold text-green-700 mb-2 leading-tight">
+        Словник: Економіка та управління фермою
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600">Ключові терміни для економіки ферми та менеджменту.</p>
+    </header>
+
+    <div class="mb-6">
+      <input id="searchInput" type="text" placeholder="Пошук слів…"
+             class="w-full px-4 py-3 rounded-xl shadow-md border-2 border-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-300 bg-white">
+    </div>
+
+    <div id="cardsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+
+    <footer class="text-center text-gray-500 text-sm mt-12 pb-10">
+      <p>© 2025 Deutsch+Profis. Усі права захищені.</p>
+    </footer>
+  </div>
+
+  <script>
+    const dictionaryData = [
+  {
+    "german": "der Gewinn",
+    "ukrainian": "прибуток",
+    "sentence": "Der Gewinn des Bauernhofs stieg im letzten Jahr.",
+    "id": "audio/01_Der_Gewinn_des_Bauernhofs_stieg_im_letzten_Jahr..mp3"
+  },
+  {
+    "german": "die Kosten",
+    "ukrainian": "витрати",
+    "sentence": "Die Kosten für Futtermittel sind gestiegen.",
+    "id": "audio/02_Die_Kosten_fur_Futtermittel_sind_gestiegen..mp3"
+  },
+  {
+    "german": "die Buchhaltung",
+    "ukrainian": "бухгалтерія",
+    "sentence": "Die Buchhaltung wird monatlich aktualisiert.",
+    "id": "audio/03_Die_Buchhaltung_wird_monatlich_aktualisiert..mp3"
+  },
+  {
+    "german": "der Verkauf",
+    "ukrainian": "продаж",
+    "sentence": "Der Verkauf der Milchprodukte erfolgt direkt auf dem Markt.",
+    "id": "audio/04_Der_Verkauf_der_Milchprodukte_erfolgt_direkt_auf_dem_Markt..mp3"
+  },
+  {
+    "german": "der Marktpreis",
+    "ukrainian": "ринкова ціна",
+    "sentence": "Der Marktpreis für Weizen ist gestiegen.",
+    "id": "audio/05_Der_Marktpreis_fur_Weizen_ist_gestiegen..mp3"
+  },
+  {
+    "german": "das Management",
+    "ukrainian": "управління",
+    "sentence": "Gutes Management ist entscheidend für den Erfolg.",
+    "id": "audio/06_Gutes_Management_ist_entscheidend_fur_den_Erfolg..mp3"
+  },
+  {
+    "german": "die Einnahmen",
+    "ukrainian": "доходи",
+    "sentence": "Die Einnahmen überstiegen die Ausgaben.",
+    "id": "audio/07_Die_Einnahmen_uberstiegen_die_Ausgaben..mp3"
+  },
+  {
+    "german": "der Verlust",
+    "ukrainian": "збиток",
+    "sentence": "Ein plötzlicher Frost führte zu erheblichem Verlust.",
+    "id": "audio/08_Ein_plotzlicher_Frost_fuhrte_zu_erheblichem_Verlust..mp3"
+  },
+  {
+    "german": "der Vertrag",
+    "ukrainian": "договір",
+    "sentence": "Der Vertrag wurde für ein Jahr abgeschlossen.",
+    "id": "audio/09_Der_Vertrag_wurde_fur_ein_Jahr_abgeschlossen..mp3"
+  },
+  {
+    "german": "die Investition",
+    "ukrainian": "інвестиція",
+    "sentence": "Die Investition in neue Maschinen lohnt sich.",
+    "id": "audio/10_Die_Investition_in_neue_Maschinen_lohnt_sich..mp3"
+  },
+  {
+    "german": "der Kredit",
+    "ukrainian": "кредит",
+    "sentence": "Der Landwirt benötigte einen Kredit für neue Geräte.",
+    "id": "audio/11_Der_Landwirt_benotigte_einen_Kredit_fur_neue_Gerate..mp3"
+  },
+  {
+    "german": "die Subvention",
+    "ukrainian": "субсидія",
+    "sentence": "Die Subventionen unterstützen die Bauern.",
+    "id": "audio/12_Die_Subventionen_unterstutzen_die_Bauern..mp3"
+  },
+  {
+    "german": "die Ernte",
+    "ukrainian": "врожай (процес збирання)",
+    "sentence": "Die Ernte beginnt im Spätsommer.",
+    "id": "audio/13_Die_Ernte_beginnt_im_Spatsommer..mp3"
+  },
+  {
+    "german": "der Ertrag",
+    "ukrainian": "урожай (кількість)",
+    "sentence": "Der Ertrag an Getreide war hoch.",
+    "id": "audio/14_Der_Ertrag_an_Getreide_war_hoch..mp3"
+  },
+  {
+    "german": "die Produktion",
+    "ukrainian": "виробництво",
+    "sentence": "Die Milchproduktion wurde gesteigert.",
+    "id": "audio/15_Die_Milchproduktion_wurde_gesteigert..mp3"
+  },
+  {
+    "german": "der Lagerbestand",
+    "ukrainian": "складські запаси",
+    "sentence": "Der Lagerbestand an Heu ist ausreichend.",
+    "id": "audio/16_Der_Lagerbestand_an_Heu_ist_ausreichend..mp3"
+  },
+  {
+    "german": "die Qualität",
+    "ukrainian": "якість",
+    "sentence": "Die Qualität der Produkte ist entscheidend.",
+    "id": "audio/17_Die_Qualitat_der_Produkte_ist_entscheidend..mp3"
+  },
+  {
+    "german": "die Vermarktung",
+    "ukrainian": "маркетинг",
+    "sentence": "Eine gute Vermarktung erhöht den Umsatz.",
+    "id": "audio/18_Eine_gute_Vermarktung_erhoht_den_Umsatz..mp3"
+  },
+  {
+    "german": "die Nachhaltigkeit",
+    "ukrainian": "сталість",
+    "sentence": "Nachhaltigkeit ist wichtig für die Zukunft der Landwirtschaft.",
+    "id": "audio/19_Nachhaltigkeit_ist_wichtig_fur_die_Zukunft_der_Landwirtschaf.mp3"
+  },
+  {
+    "german": "der Betrieb",
+    "ukrainian": "господарство, підприємство",
+    "sentence": "Der landwirtschaftliche Betrieb ist modern ausgestattet.",
+    "id": "audio/20_Der_landwirtschaftliche_Betrieb_ist_modern_ausgestattet..mp3"
+  }
+];
+
+    const escapeHtml = (s='') => s.replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[ch]);
+    const escapeRegex = (s='') => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    function highlightText(text, filter) {
+      if (!filter) return escapeHtml(text);
+      const safe = escapeRegex(filter);
+      const re = new RegExp(`(${safe})`, 'gi');
+      return escapeHtml(text).replace(re, '<span class="highlight">$1</span>');
+    }
+
+    function renderCards(filter = "") {
+      const cards = document.getElementById('cardsContainer');
+      cards.innerHTML = '';
+
+      const filtered = dictionaryData.filter(item => {
+        const search = `${item.german} ${item.ukrainian} ${item.sentence}`.toLowerCase();
+        return search.includes(filter.toLowerCase());
+      });
+
+      if (!filtered.length) {
+        const empty = document.createElement('div');
+        empty.className = "col-span-full text-center text-gray-500 italic";
+        empty.textContent = "Нічого не знайдено. Спробуйте інший запит.";
+        cards.appendChild(empty);
+        return;
+      }
+
+      filtered.forEach(item => {
+        const hasAudio = !!item.id;
+        const audioHtml = hasAudio
+          ? `<div class="rounded-xl overflow-hidden shadow-inner w-full">
+               <audio controls preload="none" class="w-full">
+                 <source src="${item.id}" type="audio/mpeg">
+                 Ваш браузер не підтримує аудіо елемент.
+               </audio>
+             </div>`
+          : `<p class="mt-2 text-gray-400 text-sm italic text-center">Аудіо відсутнє</p>`;
+
+        const card = document.createElement('div');
+        card.className = "bg-white rounded-2xl shadow-md p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-lg hover:scale-[1.01]";
+        card.innerHTML = `
+          <div class="text-center">
+            <span class="inline-block bg-green-100 text-green-700 text-sm font-semibold px-3 py-1 rounded-full mb-3">#ЕкономікаФерми</span>
+            <h2 class="text-2xl font-bold text-green-800 mb-2 text-center">${highlightText(item.german, filter)}</h2>
+            <p class="text-gray-600 mb-1"><strong>Переклад:</strong> ${highlightText(item.ukrainian, filter)}</p>
+            <p class="text-gray-700 mb-2 text-center"><strong>Приклад:</strong> ${highlightText(item.sentence, filter)}</p>
+          </div>
+          ${audioHtml}
+        `;
+        cards.appendChild(card);
+      });
+    }
+
+    function debounce(fn, wait=200){ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a),wait); }; }
+
+    window.addEventListener('load', () => {
+      renderCards();
+      const search = document.getElementById('searchInput');
+      const update = () => renderCards(search.value.trim());
+      search.addEventListener('input', debounce(update, 200));
+    });
+  </script>
+</body>
+</html>
